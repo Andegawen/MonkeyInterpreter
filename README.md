@@ -29,3 +29,7 @@ Token types:
 * identifiers (e.g. variable names)
 * keywords
 * special characters
+
+
+`ILLEGAL` signifies a token we don't know
+`EOF` token tells our parser that it can stop ;)
