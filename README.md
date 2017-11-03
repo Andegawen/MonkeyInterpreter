@@ -23,3 +23,9 @@ Based on "Writing an interpreter in Go" by Thorsten Ball
 
 # Lexing
 source code -> lexer (aka tokenizer/scanner) -> tokens
+
+Token types:
+* numbers
+* identifiers (e.g. variable names)
+* keywords
+* special characters
