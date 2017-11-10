@@ -12,6 +12,12 @@
         // Operators
         ASSIGN,
         PLUS,
+        MINUS,
+        BANG,
+        ASTERIKS,
+        SLASH,
+        LT,
+        GT,
         
 
         // Delimiters

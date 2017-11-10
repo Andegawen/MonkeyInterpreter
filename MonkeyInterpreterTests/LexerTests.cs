@@ -10,7 +10,7 @@ namespace MonkeyInterpreterTests
         [Test]
         public void DiscoverOneSignTokens()
         {
-            var input = "=+(){},;";
+            var input = "=+(){},;!-/*";
             var lexer = new Lexer(input);
 
             var tokens = lexer.GetTokens();
@@ -25,6 +25,34 @@ namespace MonkeyInterpreterTests
                 new Token(TokenType.RBRACE, "}"),
                 new Token(TokenType.COMMA, ","),
                 new Token(TokenType.SEMICOLON, ";"),
+
+                new Token(TokenType.BANG, "!"),
+                new Token(TokenType.MINUS, "-"),
+                new Token(TokenType.SLASH, "/"),
+                new Token(TokenType.ASTERIKS, "*"),
+
+                new Token(TokenType.EOF, "")
+            }, options => options.WithStrictOrdering().ComparingEnumsByName());
+        }
+
+        [Test]
+        public void DiscoverOperatorLTandGT()
+        {
+            var input = "5 < 10 > 5;";
+            var lexer = new Lexer(input);
+
+            var tokens = lexer.GetTokens();
+
+            tokens.ShouldBeEquivalentTo(new[]
+            {
+                new Token(TokenType.INT, "5"),
+                new Token(TokenType.LT, "<"),
+                new Token(TokenType.INT, "10"),
+                new Token(TokenType.GT, ">"),
+                new Token(TokenType.INT, "5"),
+
+                new Token(TokenType.SEMICOLON, ";"),
+
                 new Token(TokenType.EOF, "")
             }, options => options.WithStrictOrdering().ComparingEnumsByName());
         }

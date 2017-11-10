@@ -12,13 +12,23 @@ namespace MonkeyInterpreter
         {
             {"=", TokenType.ASSIGN},
             {"+", TokenType.PLUS},
+            {"-", TokenType.MINUS},
+            {"*", TokenType.ASTERIKS},
+            
             {";", TokenType.SEMICOLON},
             {",", TokenType.COMMA},
             {"(", TokenType.LPAREN},
             {")", TokenType.RPAREN},
             {"{", TokenType.LBRACE},
-            {"}", TokenType.RBRACE}
+            {"}", TokenType.RBRACE},
+
+            {"<", TokenType.LT},
+            {">", TokenType.GT},
+
+            {"!", TokenType.BANG},
+            {@"/", TokenType.SLASH},
         };
+        
 
         private readonly Dictionary<string,TokenType> keywords = new Dictionary<string, TokenType>
         {
