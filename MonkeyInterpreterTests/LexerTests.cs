@@ -35,6 +35,46 @@ namespace MonkeyInterpreterTests
             }, options => options.WithStrictOrdering().ComparingEnumsByName());
         }
 
+
+        [Test]
+        public void DiscoverCondition()
+        {
+            var input = @"if(5<10){ return true;
+} else{
+return false;
+}
+";
+            var lexer = new Lexer(input);
+
+            var tokens = lexer.GetTokens();
+
+            tokens.ShouldBeEquivalentTo(new[]
+            {
+                new Token(TokenType.IF, "if"),
+                new Token(TokenType.LPAREN, "("),
+                    new Token(TokenType.INT, "5"),
+                    new Token(TokenType.LT, "<"),
+                    new Token(TokenType.INT, "10"),
+                new Token(TokenType.RPAREN, ")"),
+
+                new Token(TokenType.LBRACE, "{"),
+                    new Token(TokenType.RETURN, "return"),
+                    new Token(TokenType.TRUE, "true"),
+                    new Token(TokenType.SEMICOLON, ";"),
+                new Token(TokenType.RBRACE, "}"),
+
+                new Token(TokenType.ELSE, "else"),
+
+                new Token(TokenType.LBRACE, "{"),
+                    new Token(TokenType.RETURN, "return"),
+                    new Token(TokenType.FALSE, "false"),
+                    new Token(TokenType.SEMICOLON, ";"),
+                new Token(TokenType.RBRACE, "}"),
+
+                new Token(TokenType.EOF, "")
+            }, options => options.WithStrictOrdering().ComparingEnumsByName());
+        }
+
         [Test]
         public void DiscoverOperatorLTandGT()
         {

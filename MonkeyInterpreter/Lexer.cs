@@ -34,6 +34,11 @@ namespace MonkeyInterpreter
         {
             { "let",TokenType.LET},
             { "fn",TokenType.FUNCTION},
+            { "true",TokenType.TRUE},
+            { "false",TokenType.FALSE},
+            { "if",TokenType.IF},
+            { "else",TokenType.ELSE},
+            { "return",TokenType.RETURN},
         };
 
         private readonly HashSet<string> identities = new HashSet<string>();
