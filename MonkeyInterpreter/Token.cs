@@ -12,7 +12,7 @@
 
         public override string ToString()
         {
-            return $"{Type} : {Literal}";
+            return $"t:`{Type}` : l:`{Literal}`";
         }
     }
 }

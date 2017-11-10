@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace MonkeyInterpreter
 {
@@ -13,8 +14,10 @@ namespace MonkeyInterpreter
                 if(line == "exit")
                     break;
 
-                var lexer = new Lexer(line);
-                var tokens = lexer.GetTokens();
+                var tokens = new Lexer(line).GetTokens().Select(t => t.ToString());
+                
+                Console.WriteLine(
+                    string.Join(",\n", tokens));
             }
         }
     }
