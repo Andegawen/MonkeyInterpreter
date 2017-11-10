@@ -53,6 +53,7 @@ namespace MonkeyInterpreter
 
         public IEnumerable<Token> GetTokens()
         {
+            var t = GetTokenStrings().ToArray();
             return GetTokenStrings().Select(ts =>
             {
                 if (specialStrings.ContainsKey(ts))
@@ -91,6 +92,9 @@ namespace MonkeyInterpreter
                 {
                     if (scriptToAnalyse[index + 1] == '=')
                     {
+                        var t = sb.ReturnTokenIfPossible();
+                        if (t != null)
+                            yield return t;
                         yield return new string(new []{character, scriptToAnalyse[index + 1] });
                         index++;
                         continue;

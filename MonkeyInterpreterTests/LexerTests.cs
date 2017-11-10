@@ -8,6 +8,33 @@ namespace MonkeyInterpreterTests
     public class LexerTests
     {
         [Test]
+        public void DiscoverEqualityOperatorWithIdentOrInt()
+        {
+            var input = @"5!=5
+5 != 5
+x==y";
+            var lexer = new Lexer(input);
+
+            var tokens = lexer.GetTokens();
+
+            tokens.ShouldBeEquivalentTo(new[]
+            {
+                new Token(TokenType.INT, "5"),
+                new Token(TokenType.NOT_EQ, "!="),
+                new Token(TokenType.INT, "5"),
+
+                new Token(TokenType.INT, "5"),
+                new Token(TokenType.NOT_EQ, "!="),
+                new Token(TokenType.INT, "5"),
+
+                new Token(TokenType.IDENT, "x"),
+                new Token(TokenType.EQ, "=="),
+                new Token(TokenType.IDENT, "y"),
+
+                new Token(TokenType.EOF, "")
+            }, options => options.WithStrictOrdering().ComparingEnumsByName());
+        }
+        [Test]
         public void DiscoverOneSignTokens()
         {
             var input = "=+(){},;!-/*";
