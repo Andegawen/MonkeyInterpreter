@@ -32,14 +32,14 @@ namespace MonkeyInterpreterTests
         [Test]
         public void DiscoverMoreThanOneSignTokens()
         {
-            var input = @"let five = 5;
-let ten = 10;
+            var input = @"let h5 = 5;
+let ten_x = 10;
 
 let add = fn(x,y){
 x+y;
 }
 
-let result = add(five, ten);";
+let result = add(h5, ten_x);";
             var lexer = new Lexer(input);
 
             var tokens = lexer.GetTokens();
@@ -47,13 +47,13 @@ let result = add(five, ten);";
             tokens.ShouldBeEquivalentTo(new[]
             {
                 new Token(TokenType.LET, "let"),
-                new Token(TokenType.IDENT, "five"),
+                new Token(TokenType.IDENT, "h5"),
                 new Token(TokenType.ASSIGN, "="),
                 new Token(TokenType.INT, "5"),
                 new Token(TokenType.SEMICOLON, ";"),
 
                 new Token(TokenType.LET, "let"),
-                new Token(TokenType.IDENT, "ten"),
+                new Token(TokenType.IDENT, "ten_x"),
                 new Token(TokenType.ASSIGN, "="),
                 new Token(TokenType.INT, "10"),
                 new Token(TokenType.SEMICOLON, ";"),
@@ -79,9 +79,9 @@ let result = add(five, ten);";
                 new Token(TokenType.ASSIGN,"="),
                 new Token(TokenType.IDENT,"add"),
                 new Token(TokenType.LPAREN,"("),
-                new Token(TokenType.IDENT,"five"),
+                new Token(TokenType.IDENT,"h5"),
                 new Token(TokenType.COMMA,","),
-                new Token(TokenType.IDENT,"ten"),
+                new Token(TokenType.IDENT,"ten_x"),
                 new Token(TokenType.RPAREN,")"),
                 new Token(TokenType.SEMICOLON,";"),
 

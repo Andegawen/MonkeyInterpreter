@@ -68,7 +68,7 @@ namespace MonkeyInterpreter
             var sb = new StringBuilder();
             foreach (var character in scriptToAnalyse)
             {
-                if (char.IsLetter(character) || char.IsDigit(character))
+                if (char.IsLetter(character) || char.IsDigit(character) || character=='_')
                 {
                     sb.Append(character);
                 }
