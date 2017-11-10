@@ -26,7 +26,7 @@ namespace MonkeyInterpreterTests
                 new Token(TokenType.COMMA, ","),
                 new Token(TokenType.SEMICOLON, ";"),
                 new Token(TokenType.EOF, "")
-            });
+            }, options => options.WithStrictOrdering().ComparingEnumsByName());
         }
 
         [Test]
@@ -86,7 +86,7 @@ let result = add(h5, ten_x);";
                 new Token(TokenType.SEMICOLON,";"),
 
                 new Token(TokenType.EOF, "")
-            });
+            }, options => options.WithStrictOrdering().ComparingEnumsByName());
         }
     }
 }
