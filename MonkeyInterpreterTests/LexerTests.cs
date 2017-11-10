@@ -35,6 +35,25 @@ namespace MonkeyInterpreterTests
             }, options => options.WithStrictOrdering().ComparingEnumsByName());
         }
 
+        [Test]
+        public void DiscoverEquality()
+        {
+            var input = "= == ! !=";
+            var lexer = new Lexer(input);
+
+            var tokens = lexer.GetTokens();
+
+            tokens.ShouldBeEquivalentTo(new[]
+            {
+                new Token(TokenType.ASSIGN, "="),
+                new Token(TokenType.EQ, "=="),
+                new Token(TokenType.BANG, "!"),
+                new Token(TokenType.NOT_EQ, "!="),
+
+                new Token(TokenType.EOF, "")
+            }, options => options.WithStrictOrdering().ComparingEnumsByName());
+        }
+
 
         [Test]
         public void DiscoverCondition()

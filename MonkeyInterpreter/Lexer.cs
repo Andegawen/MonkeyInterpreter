@@ -8,7 +8,7 @@ namespace MonkeyInterpreter
     {
         private readonly string scriptToAnalyse;
 
-        private readonly Dictionary<string, TokenType> oneSignTokens = new Dictionary<string, TokenType>
+        private readonly Dictionary<string, TokenType> specialStrings = new Dictionary<string, TokenType>
         {
             {"=", TokenType.ASSIGN},
             {"+", TokenType.PLUS},
@@ -27,6 +27,9 @@ namespace MonkeyInterpreter
 
             {"!", TokenType.BANG},
             {@"/", TokenType.SLASH},
+
+            {"==", TokenType.EQ},
+            {"!=", TokenType.NOT_EQ},
         };
         
 
@@ -52,9 +55,9 @@ namespace MonkeyInterpreter
         {
             return GetTokenStrings().Select(ts =>
             {
-                if (oneSignTokens.ContainsKey(ts))
+                if (specialStrings.ContainsKey(ts))
                 {
-                    return new Token(oneSignTokens[ts], ts);
+                    return new Token(specialStrings[ts], ts);
                 }
                 if (keywords.ContainsKey(ts))
                 {
@@ -81,9 +84,19 @@ namespace MonkeyInterpreter
         private IEnumerable<string> GetTokenStrings()
         {
             var sb = new StringBuilder();
-            foreach (var character in scriptToAnalyse)
+            for (var index = 0; index < scriptToAnalyse.Length; index++)
             {
-                if (char.IsLetter(character) || char.IsDigit(character) || character=='_')
+                var character = scriptToAnalyse[index];
+                if ((character == '=' || character == '!') && index < scriptToAnalyse.Length)
+                {
+                    if (scriptToAnalyse[index + 1] == '=')
+                    {
+                        yield return new string(new []{character, scriptToAnalyse[index + 1] });
+                        index++;
+                        continue;
+                    }
+                }
+                if (char.IsLetter(character) || char.IsDigit(character) || character == '_')
                 {
                     sb.Append(character);
                 }
@@ -91,25 +104,31 @@ namespace MonkeyInterpreter
                 {
                     if (char.IsWhiteSpace(character))
                     {
-                        if (sb.Length == 0) continue;
-                        var t = sb.ToString();
-                        sb.Clear();
-                        yield return t;
+                        var t = sb.ReturnTokenIfPossible();
+                        if (t != null)
+                            yield return t;
                     }
                     else
                     {
-                        if (sb.Length > 0)
-                        {
-                            var t = sb.ToString();
-                            sb.Clear();
+                        var t = sb.ReturnTokenIfPossible();
+                        if (t != null)
                             yield return t;
-                        }
-                        yield return new string(new[] { character });
+                        yield return new string(new[] {character});
                     }
                 }
             }
             if (sb.Length > 0)
                 yield return sb.ToString();
+        }
+    }
+    static class StringBuilderExtensions
+    {
+        public static string ReturnTokenIfPossible(this StringBuilder sb)
+        {
+            if (sb.Length <= 0) return null;
+            var t = sb.ToString();
+            sb.Clear();
+            return t;
         }
     }
 }

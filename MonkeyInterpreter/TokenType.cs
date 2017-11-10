@@ -18,6 +18,8 @@
         SLASH,
         LT,
         GT,
+        EQ,
+        NOT_EQ,
         
 
         // Delimiters
