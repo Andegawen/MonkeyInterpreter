@@ -51,10 +51,9 @@ namespace MonkeyInterpreter
                 {
                     return new Token(oneSignTokens[ts], ts);
                 }
-                var lits = ts.ToLowerInvariant();
-                if (keywords.ContainsKey(lits))
+                if (keywords.ContainsKey(ts))
                 {
-                    return new Token(keywords[lits], ts);
+                    return new Token(keywords[ts], ts);
                 }
                 if (ts.All(char.IsDigit))
                 {
@@ -65,6 +64,7 @@ namespace MonkeyInterpreter
                 {
                     return new Token(TokenType.ILLEGAL, ts);
                 }
+                var lits = ts.ToLowerInvariant();
                 if (!identities.Contains(lits))
                 {
                     identities.Add(lits);
