@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using MonkeyInterpreter.Parsers;
 
 namespace MonkeyInterpreter
 {
@@ -7,6 +8,7 @@ namespace MonkeyInterpreter
     {
         public static void Main(string[] args)
         {
+            var parser = new Parser()
             while (true)
             {
                 Console.Write(">> ");
@@ -14,10 +16,12 @@ namespace MonkeyInterpreter
                 if(line == "exit")
                     break;
 
-                var tokens = new Lexer(line).GetTokens().Select(t => t.ToString());
-                
-                Console.WriteLine(
-                    string.Join(",\n", tokens));
+                var statements = parser.Parse(line);
+
+                foreach (var statement in statements)
+                {
+                    Console.WriteLine(statement.GetLiteral());
+                }
             }
         }
     }
