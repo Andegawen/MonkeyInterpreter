@@ -6,8 +6,6 @@ namespace MonkeyInterpreter
 {
     public class Lexer
     {
-        private readonly string scriptToAnalyse;
-
         private readonly Dictionary<string, TokenType> specialStrings = new Dictionary<string, TokenType>
         {
             {"=", TokenType.ASSIGN},
@@ -46,15 +44,9 @@ namespace MonkeyInterpreter
 
         private readonly HashSet<string> identities = new HashSet<string>();
 
-        public Lexer(string line)
+        public IEnumerable<Token> GetTokens(string scriptToAnalyse)
         {
-            scriptToAnalyse = line;
-        }
-
-        public IEnumerable<Token> GetTokens()
-        {
-            var t = GetTokenStrings().ToArray();
-            return GetTokenStrings().Select(ts =>
+            return GetTokenStrings(scriptToAnalyse).Select(ts =>
             {
                 if (specialStrings.ContainsKey(ts))
                 {
@@ -82,7 +74,7 @@ namespace MonkeyInterpreter
             }).Concat(new[] {new Token(TokenType.EOF, "")});
         }
 
-        private IEnumerable<string> GetTokenStrings()
+        private IEnumerable<string> GetTokenStrings(string scriptToAnalyse)
         {
             var sb = new StringBuilder();
             for (var index = 0; index < scriptToAnalyse.Length; index++)

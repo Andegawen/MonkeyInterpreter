@@ -5,5 +5,5 @@ namespace MonkeyInterpreter.Parsers
     }
 
     public interface IStatement : INode {}
-    public interface IExpresion : INode {}
+    public interface IExpression : INode {}
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace MonkeyInterpreter.Parsers
 {
     public class Parser
@@ -9,16 +11,18 @@ namespace MonkeyInterpreter.Parsers
         }
         private readonly PartialParsers partialParsers;
 
-        List<IStatement> Parse(string script, out List<ParseError> errors)
+        public List<IStatement> Parse(string script, out List<ParseError> errors)
         {
             Reset();
+            var tokens = lexer.GetTokens(script);
+            tokenEnumerator = tokens.GetEnumerator();
+
             TweakTokens();
             var statements = new List<IStatement>();
             var errors = new List<ParseError>();
-            while(currentToken.Type != TokenType.EOF)
+            while(consideredTokens.Current.Type != TokenType.EOF)
             {
-
-                var statement = partialParsers[currentToken.Type].Parse(consideredTokens, TweakTokens, out var error);
+                var statement = partialParsers[consideredTokens.Current.Type].Parse(consideredTokens, TweakTokens, out var error);
                 if(statement!=null)
                     statements.Add(statement);
                 else
@@ -31,42 +35,37 @@ namespace MonkeyInterpreter.Parsers
 
         private void Reset()
         {
-            currentToken = null;
-            peekToken = null;
+            consideredTokens = null;
             tokenEnumerator = null;
             consideredTokens = null;
         }
 
         private void TweakTokens()
         {
-            if(tokenEnumerator != null)
+            if(consideredTokens != null)
             {
-                var tokens = lexer.GetTokens(script);
-                tokenEnumerator = tokens.GetEnumerator();
-
                 consideredTokens = new ConsideredTokens();
-                consideredTokens.Current = tokenEnumerator.Value;
-                tokenEnumerator.Move();
-                consideredTokens.Next = tokenEnumerator.Value;
+                consideredTokens.Current = tokenEnumerator.Current;
+                tokenEnumerator.MoveNext();
+                consideredTokens.Next = tokenEnumerator.Current;
             }
             else
             {
                 consideredTokens.Current = consideredTokens.Next;
-                tokenEnumerator.Move();
-                consideredTokens.Next = tokenEnumerator.Value;
+                tokenEnumerator.MoveNext();
+                consideredTokens.Next = tokenEnumerator.Current;
             }
         }
 
         ConsideredTokens consideredTokens = null;
-
-        private readonly IEnumerator<Token> tokenEnumerator;
+        private IEnumerator<Token> tokenEnumerator;
         private readonly Lexer lexer;
     }
     public class ConsideredTokens
     {
         //czy moge ustawic tokeny przez private w klasie powyzej? -\_o_/- ?
-        public Token Current {get; private set;}
-        public Token Next {get; private set;}
+        public Token Current {get; internal set;}
+        public Token Next {get; internal set;}
     }
 }
 

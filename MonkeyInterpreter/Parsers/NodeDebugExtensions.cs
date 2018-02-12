@@ -1,3 +1,5 @@
+using MonkeyInterpreter.Parsers;
+
 public static class NodeExtensions
 {
     public static string GetLiteral(this INode node)

@@ -1,61 +1,23 @@
-///<remarks>Currently it is too generic. But maybe we can somehow generalize more.
-///It should be names StatementParsers</remarks>
-public class PartialParsers()
+using System.Collections.Generic;
+using System.Linq;
+
+namespace MonkeyInterpreter.Parsers
 {
-    public PartialParsers()//IEnumerable<IPartialParser> parsers)
+    ///<remarks>Currently it is too generic. But maybe we can somehow generalize more.
+    ///It should be names StatementParsers</remarks>
+    public class PartialParsers
     {
-        var parsers = new { new LetStatementParser(), new ReturnStatementParser(), new IfStatementParser()};
-        parsers.ToDictionary(p=>p.TokenType, p=>p)
-    }
-
-    public [](TokenType tt){
-        tokenTypeToParserMap[tt];
-    }
-
-    private readonly Dictionary<TokenType, IPartialParser> tokenTypeToParserMap;
-}
-
-public interface IPartialParser
-{
-    TokenType Key {get;}
-    IStatement Parse(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error);
-}
-public class LetStatementParser : IPartialParser
-{
-    TokenType Key => TokenType.LET;
-    public IStatement Parse(ConsideredTokens consideredTokens, Action tweakTokens)
-    {
-        var letToken = consideredTokens.Current;
-        tweakTokens();
-        var identifer = new Identifer(consideredTokens.Current);
-        
-        tweakTokens();
-        if(consideredTokens.Current != TokenType.EQUAL)
+        public PartialParsers()//IEnumerable<IPartialParser> parsers)
         {
-            error = new ParseError("LetStatement", "Expected EQUAL token, but not found")
-            return null;
+            var parsers = new IPartialParser[]{ new LetStatementParser(), new ReturnStatementParser(), new IfStatementParser()};
+            parsers.ToDictionary(p=>p.Key, p=>p);
         }
 
-        tweakTokens();
-        var value = ParseExpression();
+        public IPartialParser this[TokenType tt]{
+            get { return tokenTypeToParserMap[tt]; }
+            set { tokenTypeToParserMap[tt]=value; }
+        }
 
-        return new LetStatement(letToken, identifer, value);
+        private readonly Dictionary<TokenType, IPartialParser> tokenTypeToParserMap;
     }
-
-    private identifer ParseIdentifier()
-    {
-
-    }
-}
-
-public class ReturnStatementParser : IPartialParser
-{
-    TokenType Key => TokenType.RETURN;
-    IStatement Parse(ConsideredTokens consideredTokens, Action tweakTokens){}
-}
-
-public class IfStatementParser : IPartialParser
-{
-    TokenType Key => TokenType.IF;
-    IStatement Parse(ConsideredTokens consideredTokens, Action tweakTokens){}
 }

@@ -8,7 +8,7 @@ namespace MonkeyInterpreter
     {
         public static void Main(string[] args)
         {
-            var parser = new Parser()
+            var parser = new Parser(new Lexer(), new PartialParsers());
             while (true)
             {
                 Console.Write(">> ");
@@ -16,11 +16,11 @@ namespace MonkeyInterpreter
                 if(line == "exit")
                     break;
 
-                var statements = parser.Parse(line);
+                var statements = parser.Parse(line, out var errors);
 
                 foreach (var statement in statements)
                 {
-                    Console.WriteLine(statement.GetLiteral());
+                    Console.WriteLine(statement.Token.Literal);
                 }
             }
         }
