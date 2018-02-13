@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.1.0" />
     <PackageReference Include="nunit" Version="3.9.0" />
   </ItemGroup>
 

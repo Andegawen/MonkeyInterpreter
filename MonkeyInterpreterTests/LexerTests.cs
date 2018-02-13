@@ -13,11 +13,11 @@ namespace MonkeyInterpreterTests
             var input = @"5!=5
 5 != 5
 x==y";
-            var lexer = new Lexer(input);
+            var lexer = new Lexer();
 
-            var tokens = lexer.GetTokens();
+            var tokens = lexer.GetTokens(input);
 
-            tokens.ShouldBeEquivalentTo(new[]
+            tokens.Should().BeEquivalentTo(new[]
             {
                 new Token(TokenType.INT, "5"),
                 new Token(TokenType.NOT_EQ, "!="),
@@ -38,11 +38,11 @@ x==y";
         public void DiscoverOneSignTokens()
         {
             var input = "=+(){},;!-/*";
-            var lexer = new Lexer(input);
+            var lexer = new Lexer();
 
-            var tokens = lexer.GetTokens();
+            var tokens = lexer.GetTokens(input);
 
-            tokens.ShouldBeEquivalentTo(new[]
+            tokens.Should().BeEquivalentTo(new[]
             {
                 new Token(TokenType.ASSIGN, "="),
                 new Token(TokenType.PLUS, "+"),
@@ -66,11 +66,11 @@ x==y";
         public void DiscoverEquality()
         {
             var input = "= == ! !=";
-            var lexer = new Lexer(input);
+            var lexer = new Lexer();
 
-            var tokens = lexer.GetTokens();
+            var tokens = lexer.GetTokens(input);
 
-            tokens.ShouldBeEquivalentTo(new[]
+            tokens.Should().BeEquivalentTo(new[]
             {
                 new Token(TokenType.ASSIGN, "="),
                 new Token(TokenType.EQ, "=="),
@@ -90,11 +90,11 @@ x==y";
 return false;
 }
 ";
-            var lexer = new Lexer(input);
+            var lexer = new Lexer();
 
-            var tokens = lexer.GetTokens();
+            var tokens = lexer.GetTokens(input);
 
-            tokens.ShouldBeEquivalentTo(new[]
+            tokens.Should().BeEquivalentTo(new[]
             {
                 new Token(TokenType.IF, "if"),
                 new Token(TokenType.LPAREN, "("),
@@ -125,11 +125,11 @@ return false;
         public void DiscoverOperatorLTandGT()
         {
             var input = "5 < 10 > 5;";
-            var lexer = new Lexer(input);
+            var lexer = new Lexer();
 
-            var tokens = lexer.GetTokens();
+            var tokens = lexer.GetTokens(input);
 
-            tokens.ShouldBeEquivalentTo(new[]
+            tokens.Should().BeEquivalentTo(new[]
             {
                 new Token(TokenType.INT, "5"),
                 new Token(TokenType.LT, "<"),
@@ -154,11 +154,11 @@ x+y;
 }
 
 let result = add(h5, ten_x);";
-            var lexer = new Lexer(input);
+            var lexer = new Lexer();
 
-            var tokens = lexer.GetTokens();
+            var tokens = lexer.GetTokens(input);
 
-            tokens.ShouldBeEquivalentTo(new[]
+            tokens.Should().BeEquivalentTo(new[]
             {
                 new Token(TokenType.LET, "let"),
                 new Token(TokenType.IDENT, "h5"),

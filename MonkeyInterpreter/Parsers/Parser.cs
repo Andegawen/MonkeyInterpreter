@@ -19,7 +19,7 @@ namespace MonkeyInterpreter.Parsers
 
             TweakTokens();
             var statements = new List<IStatement>();
-            var errors = new List<ParseError>();
+            errors = new List<ParseError>();
             while(consideredTokens.Current.Type != TokenType.EOF)
             {
                 var statement = partialParsers[consideredTokens.Current.Type].Parse(consideredTokens, TweakTokens, out var error);

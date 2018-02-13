@@ -7,10 +7,10 @@ namespace MonkeyInterpreter.Parsers
     ///It should be names StatementParsers</remarks>
     public class PartialParsers
     {
-        public PartialParsers()//IEnumerable<IPartialParser> parsers)
+        public PartialParsers()
         {
             var parsers = new IPartialParser[]{ new LetStatementParser(), new ReturnStatementParser(), new IfStatementParser()};
-            parsers.ToDictionary(p=>p.Key, p=>p);
+            tokenTypeToParserMap = parsers.ToDictionary(p=>p.Key, p=>p);
         }
 
         public IPartialParser this[TokenType tt]{
