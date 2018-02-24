@@ -29,9 +29,7 @@ x==y";
 
                 new Token(TokenType.IDENT, "x"),
                 new Token(TokenType.EQ, "=="),
-                new Token(TokenType.IDENT, "y"),
-
-                new Token(TokenType.EOF, "")
+                new Token(TokenType.IDENT, "y")
             }, options => options.WithStrictOrdering().ComparingEnumsByName());
         }
         [Test]
@@ -56,9 +54,7 @@ x==y";
                 new Token(TokenType.BANG, "!"),
                 new Token(TokenType.MINUS, "-"),
                 new Token(TokenType.SLASH, "/"),
-                new Token(TokenType.ASTERIKS, "*"),
-
-                new Token(TokenType.EOF, "")
+                new Token(TokenType.ASTERIKS, "*")
             }, options => options.WithStrictOrdering().ComparingEnumsByName());
         }
 
@@ -75,9 +71,7 @@ x==y";
                 new Token(TokenType.ASSIGN, "="),
                 new Token(TokenType.EQ, "=="),
                 new Token(TokenType.BANG, "!"),
-                new Token(TokenType.NOT_EQ, "!="),
-
-                new Token(TokenType.EOF, "")
+                new Token(TokenType.NOT_EQ, "!=")
             }, options => options.WithStrictOrdering().ComparingEnumsByName());
         }
 
@@ -115,9 +109,7 @@ return false;
                     new Token(TokenType.RETURN, "return"),
                     new Token(TokenType.FALSE, "false"),
                     new Token(TokenType.SEMICOLON, ";"),
-                new Token(TokenType.RBRACE, "}"),
-
-                new Token(TokenType.EOF, "")
+                new Token(TokenType.RBRACE, "}")
             }, options => options.WithStrictOrdering().ComparingEnumsByName());
         }
 
@@ -137,9 +129,7 @@ return false;
                 new Token(TokenType.GT, ">"),
                 new Token(TokenType.INT, "5"),
 
-                new Token(TokenType.SEMICOLON, ";"),
-
-                new Token(TokenType.EOF, "")
+                new Token(TokenType.SEMICOLON, ";")
             }, options => options.WithStrictOrdering().ComparingEnumsByName());
         }
 
@@ -197,9 +187,7 @@ let result = add(h5, ten_x);";
                 new Token(TokenType.COMMA,","),
                 new Token(TokenType.IDENT,"ten_x"),
                 new Token(TokenType.RPAREN,")"),
-                new Token(TokenType.SEMICOLON,";"),
-
-                new Token(TokenType.EOF, "")
+                new Token(TokenType.SEMICOLON,";")
             }, options => options.WithStrictOrdering().ComparingEnumsByName());
         }
     }

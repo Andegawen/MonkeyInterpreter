@@ -20,15 +20,20 @@ namespace MonkeyInterpreter.Parsers
             TweakTokens();
             var statements = new List<IStatement>();
             errors = new List<ParseError>();
-            while(consideredTokens.Current.Type != TokenType.EOF)
+            while(consideredTokens.Current!=null)
             {
-                var statement = partialParsers[consideredTokens.Current.Type].Parse(consideredTokens, TweakTokens, out var error);
-                if(statement!=null)
-                    statements.Add(statement);
+                if(partialParsers.TryGetParser(consideredTokens.Current.Type, out var partialParser))
+                {
+                    var statement = partialParser.Parse(consideredTokens, TweakTokens, out var error);
+                    if(statement!=null)
+                        statements.Add(statement);
+                    else
+                        errors.Add(error);
+                }
                 else
-                    errors.Add(error);
-
-                TweakTokens();
+                {
+                    errors.Add(new ParseError($"Not recognizable token: {consideredTokens.Current.Type}", "Wrong token"));
+                }
             }
             return statements;
         }
@@ -42,8 +47,9 @@ namespace MonkeyInterpreter.Parsers
 
         private void TweakTokens()
         {
-            if(consideredTokens != null)
+            if(consideredTokens == null)
             {
+                tokenEnumerator.MoveNext(); // start enumeration
                 consideredTokens = new ConsideredTokens();
                 consideredTokens.Current = tokenEnumerator.Current;
                 tokenEnumerator.MoveNext();
@@ -55,6 +61,11 @@ namespace MonkeyInterpreter.Parsers
                 tokenEnumerator.MoveNext();
                 consideredTokens.Next = tokenEnumerator.Current;
             }
+        }
+
+        private void FindFirstNotSkipWhiteCharacters()
+        {
+            //tokenEnumerator.MoveNext();            
         }
 
         ConsideredTokens consideredTokens = null;

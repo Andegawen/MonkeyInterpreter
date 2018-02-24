@@ -71,7 +71,7 @@ namespace MonkeyInterpreter
                     identities.Add(lits);
                 }
                 return new Token(TokenType.IDENT, ts);
-            }).Concat(new[] {new Token(TokenType.EOF, "")});
+            });
         }
 
         private IEnumerable<string> GetTokenStrings(string scriptToAnalyse)

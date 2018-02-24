@@ -19,24 +19,57 @@ namespace MonkeyInterpreter.Parsers
             var identifer = new Identifier(consideredTokens.Current);
             
             tweakTokens();
-            if(consideredTokens.Current.Type != TokenType.EQ)
+            if(consideredTokens.Current.Type != TokenType.ASSIGN)
             {
-                error = new ParseError("LetStatement", "Expected EQUAL token, but not found");
+                error = new ParseError("LetStatement", "Expected ASSIGN token, but not found");
                 return null;
             }
 
             tweakTokens();
-            var value = ParseExpression();
-
-            error = ParseError.None;
+            var value = ParseExpression(consideredTokens, tweakTokens,  out var errorExpression);
+            if(value==null)
+            {
+                error = errorExpression;
+            }
+            else
+            {
+                error = ParseError.None;
+            }
             return new LetStatement(letToken, identifer, value);
         }
 
-        private IExpression ParseExpression()
+        private IExpression ParseExpression(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error)
+        {
+            error = null;
+            switch(consideredTokens.Current.Type)
+            {
+                case TokenType.INT:
+                    {
+                        if(consideredTokens.Next.Type == TokenType.SEMICOLON)
+                        {   
+                            var expression =  new IntegerLiteralExpression(consideredTokens.Next);
+                            tweakTokens();
+                            tweakTokens();
+                            return expression;
+                        }
+
+                        if(consideredTokens.Next.Type == TokenType.PLUS)
+                        {
+                            return ParseOperatorExpression(consideredTokens, tweakTokens, out error);
+                        }
+                    }
+                    break;
+                default: throw new NotImplementedException();
+            }
+            throw new NotImplementedException();
+        }
+
+        private IExpression ParseOperatorExpression(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error)
         {
             throw new NotImplementedException();
         }
     }
+
 
     public class ReturnStatementParser : IPartialParser
     {

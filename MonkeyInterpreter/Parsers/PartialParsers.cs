@@ -13,9 +13,9 @@ namespace MonkeyInterpreter.Parsers
             tokenTypeToParserMap = parsers.ToDictionary(p=>p.Key, p=>p);
         }
 
-        public IPartialParser this[TokenType tt]{
-            get { return tokenTypeToParserMap[tt]; }
-            set { tokenTypeToParserMap[tt]=value; }
+        public bool TryGetParser(TokenType tokenType, out IPartialParser partialParser)
+        {
+            return tokenTypeToParserMap.TryGetValue(tokenType, out partialParser);
         }
 
         private readonly Dictionary<TokenType, IPartialParser> tokenTypeToParserMap;

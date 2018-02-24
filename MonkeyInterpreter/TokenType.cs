@@ -1,9 +1,13 @@
 ﻿namespace MonkeyInterpreter
 {
+    public static class Tokens
+    {
+        public static TokenType[] Operators =  new []{TokenType.PLUS, TokenType.MINUS, TokenType.ASTERIKS, TokenType.SLASH, TokenType.LT, TokenType.GT, TokenType.EQ, TokenType.NOT_EQ};
+    }
+    
     public enum TokenType
     {
         ILLEGAL,
-        EOF,
 
         // Identifiers + literals
         IDENT, // add, foobar, x, y, ...

@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Linq;
 using MonkeyInterpreter.Parsers;
+using MonkeyInterpreter;
 
-namespace MonkeyInterpreter
+namespace Repl
 {
     internal class Program
     {
         public static void Main(string[] args)
         {
             var parser = new Parser(new Lexer(), new PartialParsers());
+            Console.WriteLine("// Monkey REPL");
+            Console.WriteLine("// write `exit` to end");
             while (true)
             {
                 Console.Write(">> ");
@@ -20,7 +23,7 @@ namespace MonkeyInterpreter
 
                 foreach (var statement in statements)
                 {
-                    Console.WriteLine(statement.Token.Literal);
+                    Console.WriteLine(statement);
                 }
             }
         }
