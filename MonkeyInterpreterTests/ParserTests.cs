@@ -3,6 +3,7 @@ using NUnit.Framework;
 using FluentAssertions;
 using  MonkeyInterpreter.Parsers;
 using  MonkeyInterpreter;
+using System.Collections.Generic;
 
 namespace MonkeyInterpreterTests
 {
@@ -37,11 +38,11 @@ namespace MonkeyInterpreterTests
 
             var statements = parser.Parse(intput, out var errors);
 
-            statements.Should().BeEquivalentTo(new []{
+            statements.Should().BeEquivalentTo(new List<IStatement>(){
                 new LetStatement(
                     new Token(TokenType.LET, "let"),
                     new Identifier(new Token(TokenType.IDENT, "x")),
-                    new IntegerLiteralExpression(new Token(TokenType.INT, ";"))) //it should fail because it is `;`
+                    new IntegerLiteralExpression(new Token(TokenType.INT, "3")))
                     }, options=>options.RespectingRuntimeTypes());
         }
     }
