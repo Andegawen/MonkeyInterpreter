@@ -47,7 +47,7 @@ namespace MonkeyInterpreter.Parsers
                     {
                         if(consideredTokens.Next.Type == TokenType.SEMICOLON)
                         {   
-                            var expression =  new IntegerLiteralExpression(consideredTokens.Next);
+                            var expression =  new IntegerLiteralExpression(consideredTokens.Current);
                             tweakTokens();
                             tweakTokens();
                             return expression;
