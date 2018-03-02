@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MonkeyInterpreter.Parsers
+namespace MonkeyInterpreter.Parsers.PartialParsers
 {
     ///<remarks>Currently it is too generic. But maybe we can somehow generalize more.
     ///It should be names StatementParsers</remarks>
-    public class PartialParsers
+    public class PartialParsersRegistry
     {
-        public PartialParsers()
+        public PartialParsersRegistry()
         {
             var parsers = new IPartialParser[] { new LetStatementParser(), new ReturnStatementParser(), new IfStatementParser() };
             tokenTypeToParserMap = parsers.ToDictionary(p => p.Key, p => p);

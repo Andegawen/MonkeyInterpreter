@@ -1,15 +1,17 @@
 using System.Collections.Generic;
+using MonkeyInterpreter.Parsers.PartialParsers;
+using MonkeyInterpreter.Parsers.Structure;
 
 namespace MonkeyInterpreter.Parsers
 {
     public class Parser
     {
-        public Parser(Lexer lexer, PartialParsers partialParsers)
+        public Parser(Lexer lexer, PartialParsersRegistry partialParsers)
         {
             this.lexer = lexer;
             this.partialParsers = partialParsers;
         }
-        private readonly PartialParsers partialParsers;
+        private readonly PartialParsersRegistry partialParsers;
 
         public List<IStatement> Parse(string script, out List<ParseError> errors)
         {

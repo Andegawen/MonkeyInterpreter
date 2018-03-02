@@ -5,6 +5,8 @@ using MonkeyInterpreter.Parsers;
 using MonkeyInterpreter;
 using System.Collections.Generic;
 using System.Linq;
+using MonkeyInterpreter.Parsers.PartialParsers;
+using MonkeyInterpreter.Parsers.Structure;
 
 namespace MonkeyInterpreterTests
 {
@@ -14,7 +16,7 @@ namespace MonkeyInterpreterTests
         [Test]
         public void ShouldFailOnNotRecognizableCode()
         {
-            var parser = new Parser(new Lexer(), new PartialParsers());
+            var parser = new Parser(new Lexer(), new PartialParsersRegistry());
 
             parser.Parse("somethingNotParsable", out var errors);
 
@@ -25,7 +27,7 @@ namespace MonkeyInterpreterTests
         [Test]
         public void ForProperScriptThereIsNoParseErrors()
         {
-            var parser = new Parser(new Lexer(), new PartialParsers());
+            var parser = new Parser(new Lexer(), new PartialParsersRegistry());
 
             var statements = parser.Parse("let x = 3;", out var errors);
 
@@ -35,7 +37,7 @@ namespace MonkeyInterpreterTests
         [TestCase("let x = 3;")]
         public void ShouldParseLetStatement(string input)
         {
-            var parser = new Parser(new Lexer(), new PartialParsers());
+            var parser = new Parser(new Lexer(), new PartialParsersRegistry());
 
             var statements = parser.Parse(input, out var errors);
 
@@ -54,7 +56,7 @@ namespace MonkeyInterpreterTests
 @"let x = 3;
 let y= 10;
 let foobar =838383;";
-            var parser = new Parser(new Lexer(), new PartialParsers());
+            var parser = new Parser(new Lexer(), new PartialParsersRegistry());
 
             var statements = parser.Parse(input, out var errors);
 
@@ -67,7 +69,7 @@ let foobar =838383;";
         public void WrongTokenForStatementEndsUpWithError()
         {
             var input = @"let x == 3;";
-            var parser = new Parser(new Lexer(), new PartialParsers());
+            var parser = new Parser(new Lexer(), new PartialParsersRegistry());
 
             var statements = parser.Parse(input, out var errors);
 
@@ -84,7 +86,7 @@ let foobar =838383;";
         //[TestCase("return add(15);")]
         public void ShouldParseSimpleReturnStatement(string input)
         {
-            var parser = new Parser(new Lexer(), new PartialParsers());
+            var parser = new Parser(new Lexer(), new PartialParsersRegistry());
 
             var statements = parser.Parse(input, out var errors);
 

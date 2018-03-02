@@ -1,4 +1,4 @@
-namespace MonkeyInterpreter.Parsers
+namespace MonkeyInterpreter.Parsers.Structure
 {
     public class Identifier
     {

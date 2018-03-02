@@ -2,6 +2,7 @@
 using System.Linq;
 using MonkeyInterpreter.Parsers;
 using MonkeyInterpreter;
+using MonkeyInterpreter.Parsers.PartialParsers;
 
 namespace Repl
 {
@@ -9,7 +10,7 @@ namespace Repl
     {
         public static void Main(string[] args)
         {
-            var parser = new Parser(new Lexer(), new PartialParsers());
+            var parser = new Parser(new Lexer(), new PartialParsersRegistry());
             Console.WriteLine("// Monkey REPL");
             Console.WriteLine("// write `exit` to end");
             while (true)

@@ -1,7 +1,8 @@
 
 using System;
+using MonkeyInterpreter.Parsers.Structure;
 
-namespace MonkeyInterpreter.Parsers
+namespace MonkeyInterpreter.Parsers.PartialParsers
 {
     public static class ExpressionParser
     {
