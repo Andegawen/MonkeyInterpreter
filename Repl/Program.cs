@@ -16,7 +16,7 @@ namespace Repl
             {
                 Console.Write(">> ");
                 var line = Console.ReadLine();
-                if(line == "exit")
+                if (line == "exit")
                     break;
 
                 var statements = parser.Parse(line, out var errors);

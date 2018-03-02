@@ -4,10 +4,10 @@ namespace MonkeyInterpreter.Parsers
 {
     public interface IPartialParser
     {
-        TokenType Key {get;}
+        TokenType Key { get; }
         IStatement Parse(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error);
     }
-    
+
     public class LetStatementParser : IPartialParser
     {
         public TokenType Key => TokenType.LET;
@@ -17,8 +17,8 @@ namespace MonkeyInterpreter.Parsers
             var letToken = consideredTokens.Current;
             tweakTokens();
 
-            
-            if(consideredTokens.Current.Type != TokenType.IDENT)
+
+            if (consideredTokens.Current.Type != TokenType.IDENT)
             {
                 error = new ParseError(StatementType.Let, TokenType.IDENT, consideredTokens.Current.Type);
                 tweakTokens();
@@ -26,24 +26,24 @@ namespace MonkeyInterpreter.Parsers
             }
             var identifer = new Identifier(consideredTokens.Current);
             tweakTokens();
-            
-            
-            if(consideredTokens.Current.Type != TokenType.ASSIGN)
+
+
+            if (consideredTokens.Current.Type != TokenType.ASSIGN)
             {
                 error = new ParseError(StatementType.Let, TokenType.ASSIGN, consideredTokens.Current.Type);
                 tweakTokens();
                 return null;
             }
             tweakTokens();
-            var value = ExpressionParser.ParseExpression(consideredTokens, tweakTokens,  out var errorExpression);
-            error = value==null 
-                ? errorExpression 
+            var value = ExpressionParser.ParseExpression(consideredTokens, tweakTokens, out var errorExpression);
+            error = value == null
+                ? errorExpression
                 : ParseError.None;
-            
+
             return new LetStatement(letToken, identifer, value);
         }
 
-        
+
     }
 
 
@@ -51,14 +51,15 @@ namespace MonkeyInterpreter.Parsers
     {
         public TokenType Key => TokenType.RETURN;
 
-        public IStatement Parse(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error){
+        public IStatement Parse(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error)
+        {
             var returnToken = consideredTokens.Current;
             tweakTokens();
 
-            
-            var value = ExpressionParser.ParseExpression(consideredTokens, tweakTokens,  out var errorExpression);
-            error = value==null 
-                ? errorExpression 
+
+            var value = ExpressionParser.ParseExpression(consideredTokens, tweakTokens, out var errorExpression);
+            error = value == null
+                ? errorExpression
                 : ParseError.None;
             return new ReturnStatement(returnToken, value);
         }
@@ -69,19 +70,19 @@ namespace MonkeyInterpreter.Parsers
         public static IExpression ParseExpression(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error)
         {
             error = null;
-            switch(consideredTokens.Current.Type)
+            switch (consideredTokens.Current.Type)
             {
                 case TokenType.INT:
                     {
-                        if(consideredTokens.Next.Type == TokenType.SEMICOLON)
-                        {   
-                            var expression =  new IntegerLiteralExpression(consideredTokens.Current);
+                        if (consideredTokens.Next.Type == TokenType.SEMICOLON)
+                        {
+                            var expression = new IntegerLiteralExpression(consideredTokens.Current);
                             tweakTokens();
                             tweakTokens();
                             return expression;
                         }
 
-                        if(consideredTokens.Next.Type == TokenType.PLUS)
+                        if (consideredTokens.Next.Type == TokenType.PLUS)
                         {
                             return ParseOperatorExpression(consideredTokens, tweakTokens, out error);
                         }
@@ -101,7 +102,8 @@ namespace MonkeyInterpreter.Parsers
     public class IfStatementParser : IPartialParser
     {
         public TokenType Key => TokenType.IF;
-        public IStatement Parse(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error){
+        public IStatement Parse(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error)
+        {
             throw new NotImplementedException();
         }
     }

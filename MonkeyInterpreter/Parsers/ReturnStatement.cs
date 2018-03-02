@@ -8,9 +8,9 @@ namespace MonkeyInterpreter.Parsers
             Value = value;
         }
 
-        public Token StatementToken {get;private set;}
-        public Identifier Identifier {get;private set;}
-        public IExpression Value {get; private set;}
+        public Token StatementToken { get; private set; }
+        public Identifier Identifier { get; private set; }
+        public IExpression Value { get; private set; }
 
         public override string ToString()
         {

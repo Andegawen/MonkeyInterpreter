@@ -20,12 +20,12 @@ namespace MonkeyInterpreter.Parsers
             TweakTokens();
             var statements = new List<IStatement>();
             errors = new List<ParseError>();
-            while(consideredTokens.Current!=null)
+            while (consideredTokens.Current != null)
             {
-                if(partialParsers.TryGetParser(consideredTokens.Current.Type, out var partialParser))
+                if (partialParsers.TryGetParser(consideredTokens.Current.Type, out var partialParser))
                 {
                     var statement = partialParser.Parse(consideredTokens, TweakTokens, out var error);
-                    if(statement!=null)
+                    if (statement != null)
                         statements.Add(statement);
                     else
                         errors.Add(error);
@@ -48,7 +48,7 @@ namespace MonkeyInterpreter.Parsers
 
         private void TweakTokens()
         {
-            if(consideredTokens == null)
+            if (consideredTokens == null)
             {
                 tokenEnumerator.MoveNext(); // start enumeration
                 consideredTokens = new ConsideredTokens();
@@ -76,8 +76,8 @@ namespace MonkeyInterpreter.Parsers
     public class ConsideredTokens
     {
         //czy moge ustawic tokeny przez private w klasie powyzej? -\_o_/- ?
-        public Token Current {get; internal set;}
-        public Token Next {get; internal set;}
+        public Token Current { get; internal set; }
+        public Token Next { get; internal set; }
     }
 }
 

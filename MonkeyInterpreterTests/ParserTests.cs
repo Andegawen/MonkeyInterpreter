@@ -1,8 +1,8 @@
 using System;
 using NUnit.Framework;
 using FluentAssertions;
-using  MonkeyInterpreter.Parsers;
-using  MonkeyInterpreter;
+using MonkeyInterpreter.Parsers;
+using MonkeyInterpreter;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,7 +21,7 @@ namespace MonkeyInterpreterTests
             errors.Should().NotBeEmpty();
         }
 
-        
+
         [Test]
         public void ForProperScriptThereIsNoParseErrors()
         {
@@ -44,13 +44,13 @@ namespace MonkeyInterpreterTests
                     new Token(TokenType.LET, "let"),
                     new Identifier(new Token(TokenType.IDENT, "x")),
                     new IntegerLiteralExpression(new Token(TokenType.INT, "3")))
-                    }, options=>options.RespectingRuntimeTypes());
+                    }, options => options.RespectingRuntimeTypes());
         }
 
         [Test]
         public void ShouldParseMultipleLetStatementWhenOnlyLiteralExpressionsUsed()
         {
-            var input = 
+            var input =
 @"let x = 3;
 let y= 10;
 let foobar =838383;";
@@ -59,8 +59,8 @@ let foobar =838383;";
             var statements = parser.Parse(input, out var errors);
 
             statements.Should().HaveCount(3, "because there are 3 statements");
-            var identifierNames = statements.Cast<LetStatement>().Select(ls=>ls.Identifier.Name);
-            identifierNames.Should().BeEquivalentTo(new []{"x","y","foobar"});
+            var identifierNames = statements.Cast<LetStatement>().Select(ls => ls.Identifier.Name);
+            identifierNames.Should().BeEquivalentTo(new[] { "x", "y", "foobar" });
         }
 
         [Test]
@@ -72,7 +72,7 @@ let foobar =838383;";
             var statements = parser.Parse(input, out var errors);
 
             statements.Should().BeEmpty();
-            errors.Should().BeEquivalentTo(new []{
+            errors.Should().BeEquivalentTo(new[]{
                 new ParseError(StatementType.Let, TokenType.ASSIGN, TokenType.EQ),
                 new ParseError(TokenType.INT),
                 new ParseError(TokenType.SEMICOLON),
@@ -92,7 +92,7 @@ let foobar =838383;";
                 new ReturnStatement(
                     new Token(TokenType.RETURN, "return"),
                     new IntegerLiteralExpression(new Token(TokenType.INT, "5")))
-                    }, options=>options.RespectingRuntimeTypes());
+                    }, options => options.RespectingRuntimeTypes());
         }
     }
 }

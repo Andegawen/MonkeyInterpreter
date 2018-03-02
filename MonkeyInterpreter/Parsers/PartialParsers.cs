@@ -9,8 +9,8 @@ namespace MonkeyInterpreter.Parsers
     {
         public PartialParsers()
         {
-            var parsers = new IPartialParser[]{ new LetStatementParser(), new ReturnStatementParser(), new IfStatementParser()};
-            tokenTypeToParserMap = parsers.ToDictionary(p=>p.Key, p=>p);
+            var parsers = new IPartialParser[] { new LetStatementParser(), new ReturnStatementParser(), new IfStatementParser() };
+            tokenTypeToParserMap = parsers.ToDictionary(p => p.Key, p => p);
         }
 
         public bool TryGetParser(TokenType tokenType, out IPartialParser partialParser)

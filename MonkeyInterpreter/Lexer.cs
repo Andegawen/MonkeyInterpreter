@@ -12,7 +12,7 @@ namespace MonkeyInterpreter
             {"+", TokenType.PLUS},
             {"-", TokenType.MINUS},
             {"*", TokenType.ASTERIKS},
-            
+
             {";", TokenType.SEMICOLON},
             {",", TokenType.COMMA},
             {"(", TokenType.LPAREN},
@@ -29,9 +29,9 @@ namespace MonkeyInterpreter
             {"==", TokenType.EQ},
             {"!=", TokenType.NOT_EQ},
         };
-        
 
-        private readonly Dictionary<string,TokenType> keywords = new Dictionary<string, TokenType>
+
+        private readonly Dictionary<string, TokenType> keywords = new Dictionary<string, TokenType>
         {
             { "let",TokenType.LET},
             { "fn",TokenType.FUNCTION},
@@ -87,7 +87,7 @@ namespace MonkeyInterpreter
                         var t = sb.ReturnTokenIfPossible();
                         if (t != null)
                             yield return t;
-                        yield return new string(new []{character, scriptToAnalyse[index + 1] });
+                        yield return new string(new[] { character, scriptToAnalyse[index + 1] });
                         index++;
                         continue;
                     }
@@ -109,7 +109,7 @@ namespace MonkeyInterpreter
                         var t = sb.ReturnTokenIfPossible();
                         if (t != null)
                             yield return t;
-                        yield return new string(new[] {character});
+                        yield return new string(new[] { character });
                     }
                 }
             }

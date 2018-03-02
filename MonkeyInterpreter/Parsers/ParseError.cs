@@ -2,8 +2,8 @@ namespace MonkeyInterpreter.Parsers
 {
     public class ParseError
     {
-        public string Title {get; private set;}
-        public string Reason {get; private set;}
+        public string Title { get; private set; }
+        public string Reason { get; private set; }
 
         public ParseError(TokenType token)
         {
@@ -11,7 +11,7 @@ namespace MonkeyInterpreter.Parsers
             this.Reason = $"Not recognizable token: {token}";
         }
 
-        public ParseError(StatementType  statementType, TokenType expectedToken, TokenType tokenFound)
+        public ParseError(StatementType statementType, TokenType expectedToken, TokenType tokenFound)
         {
             this.Title = $"Unexpected token in {statementType}";
             this.Reason = $"Expected {expectedToken} token, but not found {tokenFound}";

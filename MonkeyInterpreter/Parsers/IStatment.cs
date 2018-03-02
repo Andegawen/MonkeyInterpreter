@@ -1,10 +1,10 @@
 namespace MonkeyInterpreter.Parsers
 {
-    public interface IStatement 
+    public interface IStatement
     {
         Token StatementToken { get; }
     }
-    public interface IExpression {}
+    public interface IExpression { }
 
     public class OperatorExpression : IExpression
     {
@@ -14,9 +14,9 @@ namespace MonkeyInterpreter.Parsers
             Right = right;
             Operator = operatorToken;
         }
-        public Token Operator {get;private set;}
-        public IntegerLiteralExpression Left {get;private set;}
-        public IExpression Right {get; private set;}
+        public Token Operator { get; private set; }
+        public IntegerLiteralExpression Left { get; private set; }
+        public IExpression Right { get; private set; }
     }
 
     public class IntegerLiteralExpression : IExpression
@@ -25,7 +25,7 @@ namespace MonkeyInterpreter.Parsers
         {
             Token = token;
         }
-        public Token Token {get; private set;}
+        public Token Token { get; private set; }
 
         public override string ToString()
         {

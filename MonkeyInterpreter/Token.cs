@@ -8,7 +8,7 @@
             Literal = literal;
         }
         public TokenType Type { get; }
-        public  string Literal { get; }
+        public string Literal { get; }
 
         public override string ToString()
         {
