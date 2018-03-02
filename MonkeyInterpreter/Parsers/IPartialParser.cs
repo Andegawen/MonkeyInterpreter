@@ -35,19 +35,38 @@ namespace MonkeyInterpreter.Parsers
                 return null;
             }
             tweakTokens();
-            var value = ParseExpression(consideredTokens, tweakTokens,  out var errorExpression);
-            if(value==null)
-            {
-                error = errorExpression;
-            }
-            else
-            {
-                error = ParseError.None;
-            }
+            var value = ExpressionParser.ParseExpression(consideredTokens, tweakTokens,  out var errorExpression);
+            error = value==null 
+                ? errorExpression 
+                : ParseError.None;
+            
             return new LetStatement(letToken, identifer, value);
         }
 
-        private IExpression ParseExpression(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error)
+        
+    }
+
+
+    public class ReturnStatementParser : IPartialParser
+    {
+        public TokenType Key => TokenType.RETURN;
+
+        public IStatement Parse(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error){
+            var returnToken = consideredTokens.Current;
+            tweakTokens();
+
+            
+            var value = ExpressionParser.ParseExpression(consideredTokens, tweakTokens,  out var errorExpression);
+            error = value==null 
+                ? errorExpression 
+                : ParseError.None;
+            return new ReturnStatement(returnToken, value);
+        }
+    }
+
+    public static class ExpressionParser
+    {
+        public static IExpression ParseExpression(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error)
         {
             error = null;
             switch(consideredTokens.Current.Type)
@@ -73,18 +92,8 @@ namespace MonkeyInterpreter.Parsers
             throw new NotImplementedException();
         }
 
-        private IExpression ParseOperatorExpression(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error)
+        private static IExpression ParseOperatorExpression(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error)
         {
-            throw new NotImplementedException();
-        }
-    }
-
-
-    public class ReturnStatementParser : IPartialParser
-    {
-        public TokenType Key => TokenType.RETURN;
-
-        public IStatement Parse(ConsideredTokens consideredTokens, Action tweakTokens, out ParseError error){
             throw new NotImplementedException();
         }
     }
