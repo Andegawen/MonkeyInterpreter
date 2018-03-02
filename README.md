@@ -36,3 +36,4 @@ Token types:
 
 # Parser
 We use ["Pratt parser"](https://en.wikipedia.org/wiki/Pratt_parser)
+We process tokens from "left to right", expect or reject the next tokens and if everything fits we return an AST node.
