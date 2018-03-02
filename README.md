@@ -36,5 +36,7 @@ Token types:
 `EOF` token tells our parser that it can stop ;)
 
 # Parser
-We use ["Pratt parser"](https://en.wikipedia.org/wiki/Pratt_parser)
+We use ["Pratt parser"](https://en.wikipedia.org/wiki/Pratt_parser).
 We process tokens from "left to right", expect or reject the next tokens and if everything fits we return an AST node.
+[Article about Pratt parsing - **Top down operator precedence**](http://journal.stuffwithstuff.com/2011/03/19/pratt-parsers-expression-parsing-made-easy/)
+
