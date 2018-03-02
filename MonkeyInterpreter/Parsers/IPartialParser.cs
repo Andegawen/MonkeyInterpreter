@@ -16,9 +16,19 @@ namespace MonkeyInterpreter.Parsers
         {
             var letToken = consideredTokens.Current;
             tweakTokens();
-            var identifer = new Identifier(consideredTokens.Current);
+
+            if(consideredTokens.Current.Type != TokenType.IDENT)
+            {
+                var identifer = new Identifier(consideredTokens.Current);
+                tweakTokens();
+            }
+            else
+            {
+                error = new ParseError(StatementType.Let, TokenType.IDENT, consideredTokens.Current.Type);
+                tweakTokens();
+                return null;
+            }
             
-            tweakTokens();
             if(consideredTokens.Current.Type != TokenType.ASSIGN)
             {
                 error = new ParseError(StatementType.Let, TokenType.ASSIGN, consideredTokens.Current.Type);
