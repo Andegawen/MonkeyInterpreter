@@ -17,17 +17,16 @@ namespace MonkeyInterpreter.Parsers
             var letToken = consideredTokens.Current;
             tweakTokens();
 
+            
             if(consideredTokens.Current.Type != TokenType.IDENT)
-            {
-                var identifer = new Identifier(consideredTokens.Current);
-                tweakTokens();
-            }
-            else
             {
                 error = new ParseError(StatementType.Let, TokenType.IDENT, consideredTokens.Current.Type);
                 tweakTokens();
                 return null;
             }
+            var identifer = new Identifier(consideredTokens.Current);
+            tweakTokens();
+            
             
             if(consideredTokens.Current.Type != TokenType.ASSIGN)
             {
@@ -35,7 +34,6 @@ namespace MonkeyInterpreter.Parsers
                 tweakTokens();
                 return null;
             }
-
             tweakTokens();
             var value = ParseExpression(consideredTokens, tweakTokens,  out var errorExpression);
             if(value==null)
