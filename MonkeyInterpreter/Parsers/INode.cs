@@ -1,10 +1,9 @@
 namespace MonkeyInterpreter.Parsers
 {
-    public interface INode {
-        Token Token { get; }
+    public interface IStatement 
+    {
+        Token StatementToken { get; }
     }
-
-    public interface IStatement : INode {}
     public interface IExpression {}
 
     public class OperatorExpression : IExpression

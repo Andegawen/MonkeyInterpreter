@@ -1,12 +1,12 @@
 namespace MonkeyInterpreter.Parsers
 {
-    public class Identifier : INode
+    public class Identifier
     {
-        public Identifier(Token token)
+        public Identifier(Token identifierToken)
         {
-            Token = token;
+            IdentifierToken = identifierToken;
         }
-        public string Name => Token.Literal;
-        public Token Token { get; private set; }
+        public string Name => IdentifierToken.Literal;
+        public Token IdentifierToken { get; private set; }
     }
 }

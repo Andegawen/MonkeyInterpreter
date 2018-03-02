@@ -89,10 +89,9 @@ let foobar =838383;";
             var statements = parser.Parse(input, out var errors);
 
             statements.Should().BeEquivalentTo(new List<IStatement>(){
-                new LetStatement(
-                    new Token(TokenType.LET, "let"),
-                    new Identifier(new Token(TokenType.IDENT, "x")),
-                    new IntegerLiteralExpression(new Token(TokenType.INT, "3")))
+                new ReturnStatement(
+                    new Token(TokenType.RETURN, "return"),
+                    new IntegerLiteralExpression(new Token(TokenType.INT, "5")))
                     }, options=>options.RespectingRuntimeTypes());
         }
     }
