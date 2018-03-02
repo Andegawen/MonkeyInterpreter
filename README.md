@@ -3,6 +3,7 @@ Based on "Writing an interpreter in Go" by Thorsten Ball
 [All code done](https://interpreterbook.com/waiig_code_1.4.zip)
 
 # Monkey specification
+In Monkey programming language **EVERYTHING** besides LET and RETURN statments **is an EXPRESSION**
 * variable bindings
 > `let name = 1;`   
 * integers and booleans
