@@ -62,5 +62,21 @@ let foobar =838383;";
             var identifierNames = statements.Cast<LetStatement>().Select(ls=>ls.Identifier.Name);
             identifierNames.Should().BeEquivalentTo(new []{"x","y","foobar"});
         }
+
+        [Test]
+        public void WrongTokenForStatementEndsUpWithError()
+        {
+            var input = @"let x == 3;";
+            var parser = new Parser(new Lexer(), new PartialParsers());
+
+            var statements = parser.Parse(input, out var errors);
+
+            statements.Should().BeEmpty();
+            errors.Should().BeEquivalentTo(new []{
+                new ParseError(StatementType.Let, TokenType.ASSIGN, TokenType.EQ),
+                new ParseError(TokenType.INT),
+                new ParseError(TokenType.SEMICOLON),
+                });
+        }
     }
 }

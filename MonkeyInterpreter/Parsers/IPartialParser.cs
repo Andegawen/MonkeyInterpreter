@@ -21,7 +21,8 @@ namespace MonkeyInterpreter.Parsers
             tweakTokens();
             if(consideredTokens.Current.Type != TokenType.ASSIGN)
             {
-                error = new ParseError("LetStatement", "Expected ASSIGN token, but not found");
+                error = new ParseError(StatementType.Let, TokenType.ASSIGN, consideredTokens.Current.Type);
+                tweakTokens();
                 return null;
             }
 

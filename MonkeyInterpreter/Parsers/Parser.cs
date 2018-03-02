@@ -32,7 +32,8 @@ namespace MonkeyInterpreter.Parsers
                 }
                 else
                 {
-                    errors.Add(new ParseError($"Not recognizable token: {consideredTokens.Current.Type}", "Wrong token"));
+                    errors.Add(new ParseError(consideredTokens.Current.Type));
+                    TweakTokens();
                 }
             }
             return statements;
