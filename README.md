@@ -33,3 +33,6 @@ Token types:
 
 `ILLEGAL` signifies a token we don't know
 `EOF` token tells our parser that it can stop ;)
+
+# Parser
+We use ["Pratt parser"](https://en.wikipedia.org/wiki/Pratt_parser)
