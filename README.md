@@ -1,6 +1,6 @@
 # MonkeyInterpreterInGo
 Based on "Writing an interpreter in Go" by Thorsten Ball
-[All code done](https://interpreterbook.com/waiig_code_1.4.zip)
+[All code done](https://interpreterbook.com/waiig_code_1.4.zip) in GO language
 
 # Monkey specification
 In Monkey programming language **EVERYTHING** besides LET and RETURN statments **is an EXPRESSION**
