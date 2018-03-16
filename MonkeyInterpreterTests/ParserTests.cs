@@ -47,6 +47,7 @@ namespace MonkeyInterpreterTests
                     new Identifier(new Token(TokenType.IDENT, "x")),
                     new IntegerLiteralExpression(new Token(TokenType.INT, "3")))
                     }, options => options.RespectingRuntimeTypes());
+            statements.Select(s=>s.ToString()).Should().BeEquivalentTo(new []{"LET x = 3;"});
         }
 
         [Test]
