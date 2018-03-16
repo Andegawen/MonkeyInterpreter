@@ -15,7 +15,8 @@ namespace MonkeyInterpreter.Parsers.Structure
 
         public override string ToString()
         {
-            return $"Statement {StatementToken.Type} with Identifier `{Identifier.Name}` {Value}";
+            var valueString = Value!=null ? Value.ToString() : "";
+            return $"{StatementToken.Type} {Identifier.Name} = {valueString};";
         }
     }
 }

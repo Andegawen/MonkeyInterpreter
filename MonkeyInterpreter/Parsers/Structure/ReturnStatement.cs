@@ -9,12 +9,12 @@ namespace MonkeyInterpreter.Parsers.Structure
         }
 
         public Token StatementToken { get; private set; }
-        public Identifier Identifier { get; private set; }
         public IExpression Value { get; private set; }
 
         public override string ToString()
         {
-            return $"Statement {StatementToken.Type} with Identifier `{Identifier.Name}` {Value}";
+            var valueString = Value!=null ? Value.ToString() : "";
+            return $"{StatementToken.Type} {valueString};";
         }
     }
 }
