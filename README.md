@@ -40,3 +40,6 @@ We use ["Pratt parser"](https://en.wikipedia.org/wiki/Pratt_parser).
 We process tokens from "left to right", expect or reject the next tokens and if everything fits we return an AST node.
 [Article about Pratt parsing - **Top down operator precedence**](http://journal.stuffwithstuff.com/2011/03/19/pratt-parsers-expression-parsing-made-easy/)
 
+The Pratt parsing approach is an alternative to parsers based on context-free grammars adn the [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form). In this method you have two parsing functions associated with token (infix and prefix)
+
+Terminology: postfix, prefix, infix and precedence
